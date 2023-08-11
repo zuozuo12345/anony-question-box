@@ -1,0 +1,298 @@
+table.bordered-table th, td {border: 1px solid silver; padding: 4px;}
+table.bordered-table {border-collapse: collapse;}
+div.box1 {
+    width: 50px;
+    height: 50px;
+    background-color: darkseagreen;
+    /*margin: 5px;*/
+    display: inline-block;
+}
+div.box2 {
+    width: 50px;
+    height: 50px;
+    background-color: grey;
+    /*margin: 5px;*/
+    display: inline-block;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto;
+    background-color: floralwhite;
+}
+
+nav ul {
+    list-style-type: none;
+    margin-top: 0;
+    margin-bottom: 5px;
+    padding:0 0 0 0;
+    text-align: center;
+    overflow: hidden;
+    background-color: indigo;
+    height: 100%;
+}
+
+nav ul li {
+    float: left;
+    text-align: center;
+    width: 20%;
+    height: 100%;
+
+}
+
+nav ul li a {
+    height: 100%;
+    display: block;
+    color: white;
+    text-align: center;
+    padding:10px 5px 10px 5px;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 15px;
+}
+
+nav ul li a:hover {
+    height: 100%;
+    background-color:cadetblue;
+}
+
+.index {
+    margin: 8px;
+    align-items: center;
+}
+
+.index div {
+    display: block;
+}
+
+.title {
+    text-align: center;
+    font-size: 32px;
+    font-weight: bold;
+    margin: 50px;
+}
+
+.intro {
+    text-align: left;
+    margin: auto;
+    font-size: 18px;
+    color: darkslategray;
+    width: 60%;
+}
+
+.qna {
+    margin: auto;
+    margin-top: 10px;
+    padding: 10px;
+    width: 600px;
+    border-radius: 5px;
+    color: black;
+}
+
+.qnaTitle {
+    background-color: cyan;
+    border-radius: 5px;
+    box-shadow: 2px 2px 2px gray;
+    padding: 5px;
+    margin: 8px;
+}
+
+.qnaTitle p {
+    margin: 2px;
+}
+
+.qnaAnswer {
+    background-color: lavenderblush;
+    border-radius: 5px;
+    box-shadow: 2px 2px 2px gray;
+    padding: 5px;
+    margin: 8px 8px 8px 20px;
+}
+
+.qnaAnswer p {
+    margin: 2px;
+}
+
+.qnaDelete {
+    margin: 0px 8px 0px 24px;
+}
+
+.myInfo {
+    width: 300px;
+    margin: auto;
+}
+
+.myInfo h2 {
+    font-size: 30px;
+    text-align: center;
+    margin: 50px 20px 20px 20px;
+}
+
+.myInfo div {
+    text-align: center;
+    margin: 10px;
+}
+
+.infoTable {
+    text-align: left;
+    width: 300px;
+    margin: auto;
+}
+
+.ask-question-box h2 {
+    font-size: 30px;
+    text-align: center;
+    margin: 50px 20px 20px 20px;
+}
+
+.ask-question-box form {
+    text-align: center;
+}
+
+.ask-question-box form input {
+    width: 400px;
+}
+
+.question {
+    margin: auto;
+    margin-top: 10px;
+    padding: 10px;
+    width: 80%;
+    border-radius: 5px;
+    color: black;
+}
+
+.questionTitle {
+    background-color: cyan;
+    border-radius: 5px;
+    box-shadow: 2px 2px 2px gray;
+    padding: 5px;
+    margin: 8px;
+}
+
+.questionTitle p {
+    margin: 2px;
+}
+
+.questionAnswer {
+    background-color: lavenderblush;
+    border-radius: 5px;
+    box-shadow: 2px 2px 2px gray;
+    padding: 5px;
+    margin: 8px 8px 8px 20px;
+}
+
+.questionAnswer p {
+    margin: 2px;
+}
+
+.questionInput {
+    background-color: lavenderblush;
+    border-radius: 5px;
+    box-shadow: 2px 2px 2px gray;
+    padding: 5px;
+    margin: 8px 8px 8px 20px;
+}
+
+.questionInput input {
+    width: 90%;
+    margin: auto;
+}
+
+.questionFast {
+    background-color: lavenderblush;
+    border-radius: 5px;
+    box-shadow: 2px 2px 2px gray;
+    padding: 5px;
+    margin: 8px 8px 8px 20px;
+}
+
+.questionFast p {
+    margin: 2px;
+}
+
+.App {
+    display: flex;
+    align-items: center;
+    list-style-type: none;
+    width: 700px;
+    margin: auto;
+}
+
+.sign-up {
+    width: 300px;
+    height: 330px;
+    margin: 30px auto 30px auto;
+    border-radius: 5px;
+    background-color: white;
+    box-shadow: 0px 0px 3px gray;
+}
+
+.sign-up h2 {
+    margin: 20px;
+}
+
+.sign-up form {
+    width: 260px;
+    margin-top: 0;
+    margin-left: 20px;
+}
+
+.sign-up input {
+    width: 260px;
+    margin-top: 15px;
+    font-size: 20px;
+}
+
+.sign-up div {
+    width: 260px;
+    margin-top: 15px;
+    font-size: 14px;
+    color: gray;
+}
+
+.sign-up button {
+    width: 260px;
+    margin-top: 15px;
+    padding: 5px;
+    font-size: 20px;
+}
+
+.log-in {
+    width: 300px;
+    height: 330px;
+    margin: 30px auto 30px auto;
+    border-radius: 5px;
+    background-color: white;
+    box-shadow: 0px 0px 3px gray;
+}
+
+.log-in h2 {
+    margin: 20px;
+}
+
+.log-in form {
+    width: 260px;
+    margin-top: 0;
+    margin-left: 20px;
+}
+
+.log-in input {
+    width: 260px;
+    margin-top: 15px;
+    font-size: 20px;
+}
+
+.log-in div {
+    width: 260px;
+    margin-top: 15px;
+    font-size: 14px;
+    color: gray;
+}
+
+.log-in button {
+    width: 260px;
+    margin-top: 15px;
+    padding: 5px;
+    font-size: 20px;
+}

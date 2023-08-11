@@ -1,0 +1,281 @@
+scalar DateTime
+scalar Date
+
+"Passwords should be sha256 hashed."
+input SignUpInput {
+  name: String!
+  nickname: String!
+  password: String!           # A sha256-hash of the password
+}
+
+type SignUpResult {
+  successful: Boolean!        # The sign-up attempt was successful or not.
+  remark: String              # Remarks on the sign-up attempt. For example, why the sign-up was unsuccessful.
+  token: String
+  expiration: String
+  userId:String
+}
+
+input LogInInput {
+  name: String!
+  nickname:String!
+  password: String!            # A sha256-hash of the password
+}
+
+type LogInResult {
+  successful: Boolean!        # The log-in attempt was successful or not.
+  remark: String              # Remarks on the log-in attempt. For example, why the log-in was unsuccessful.
+  token: String               # Returns a token if successful, would be needed for later operations. Put in a cookie!
+  expiration: DateTime        # The expiration time of the current token.
+  userId:String
+
+}
+
+
+
+
+
+input CreateQuestion {
+  hostname: String            # The "name" field of the host, i.e. the user being asked.
+#  groupname: String           # Either specify a group or a host. Not both.
+  guestname: String!          # The "name" filed of the guest, i.e. the asker.
+  content: String!            # The content of the question.
+  token: String!              # Provide the token of the guest in order to validate the log in status.
+}
+
+type CreateQuestionResult {
+  successful: Boolean!        # Whether the question is successfully stored into the database.
+  questionId: String          # The ObjectId field of the question, which is an unique identifier of the question.
+  remark: String              # Remarks on the creation attempt.
+}
+
+input CreateAnswer {
+  questionId: String!         # The question id of the answer.
+  content: String!            # The content of the answer.
+  guestname: String!          # The name of the answerer. Purely for verification. If not the host, this would not be stored in DB.
+  token: String!              # The token of the answerer.
+}
+
+type CreateAnswerResult {
+  successful: Boolean!        # Successful or not.
+  answerId: String            # The unique id of the answer.
+  remark: String              # Remarks on the attempt.
+}
+
+"Specify either field. If both, groupname will be discarded."
+input GetQuestions {
+  hostname: String
+#  groupname: String
+  limit: Int                  # Get how many. Default: 20.
+  offset: Int                 # Skip how many. Default: 0.
+}
+
+type QuestionDigest {
+  questionId: String!,        # The id of the question.
+  content: String!,           # The content of the question.
+  timestamp: DateTime         # The timestamp of the question.
+  hostname: String!,
+  guestname: String!
+}
+
+input GetAnswers {
+  questionId: String!         # The id of the question.
+  limit: Int                  # Get how many. Default: 20.
+  offset: Int                 # Skip how many. Default: 0.
+}
+
+type Answer {
+  content: String!            # The content of the answer.
+  isHost: String!             # Whether this answer is from the host.
+  questionId: String!         # The id of the question to which the answer belongs.
+  timestamp: DateTime!        # The timestamp of the answer.
+}
+
+"The search is performed by MongoDB text search."
+input Search {
+  hostname: String!           # The name of the host from whose questions the search is performed.
+  text: String!               # The search string.
+}
+
+input DeleteQuestion {
+  questionId: String!         # The id of the question.
+  name: String!               # The name of the deleter. Only an administrator or the host of the question can delete the question.
+  token: String!              # The token of the the deleter.
+}
+
+type DeleteQuestionResult {
+  successful: Boolean!
+  remark: String
+}
+
+
+
+
+"The admin of the group will be the creator by default. Can have multiple admins."
+input CreateGroup {
+  name: String!               # The name of the group. Should be unique.
+  description: String!        # The description of the group.
+  memberNames: [String]!      # The names of the members.
+  creatorName: String!        # The name of the creator.
+  creatorToken: String!       # The token of the creator.
+}
+
+type CreateGroupResult {
+  successful: Boolean!
+  groupId: String             # The id of the group.
+  remark: String
+}
+
+input GetGroupInfo {
+  groupName: String           # Either specify the name or the id.
+  groupId: String             # If both given, the priority is the id.
+  requestorName: String!      # The requestor should be a member.
+  requestorToken: String!
+}
+
+type GetGroupInfoResult {
+  info: GroupInfo             # The group info, if successful.
+  remark: String
+}
+
+type GroupInfo {
+  name: String!
+  description: String!
+  memberNames: [String]!
+  memberNicknames: [String]!
+  adminNames: [String]!
+  adminNicknames: [String]!
+}
+
+"Add first, then delete."
+input EditGroupMember {
+  groupName: String!
+  toAdd: [String]!            # The names of the added members.
+  toDelete: [String]!         # The names of the deleted members.
+  adminName: String!          # The admin who issues this operation.
+  adminToken: String!         # The token of the admin.
+}
+
+type EditMemberResult {
+  acknowledged: Boolean
+  memberList: [String]        # The member list after the operation.
+  remark: String
+}
+
+"The operation shouldn't delete all admins."
+input EditGroupAdmin {
+  groupName: String!
+  toAdd: [String]!            # The names of the added admins.
+  toDelete: [String]!         # The names of the deleted admins.
+  adminName: String!          # The admin who issues this operation.
+  adminToken: String!         # The token of the admin.
+}
+
+type EditAdminResult {
+  acknowledged: Boolean!
+  adminList: [String]         # The admin list after the operation.
+  remark: String
+}
+
+input DeleteGroup {
+  groupName: String!          # The name of the group to be deleted.
+  adminName: String!          # The admin who issues this operation.
+  adminToken: String!         # The token of the admin.
+}
+
+type DeleteGroupResult {
+  successful: Boolean!
+  remark: String
+}
+
+input UpdateGroupInfo {
+  oldName: String!
+  name: String                # (Optional) The new name of the group.
+  description: String         # (Optional) The new description of the group.
+  adminName: String!
+  adminToken: String!
+}
+
+type UpdateGroupInfoResult {
+  acknowledged: Boolean!
+  info: GroupInfo
+  remark: String
+}
+
+
+
+
+
+input UpdateUserInfo {
+  userId: String
+  name: String
+  nickname: String
+  sex: String
+  birthday: String
+  hobbies: [String]
+  country_region: String
+  token:String
+}
+
+type UpdateUserInfoResult {
+  successful: Boolean!
+  remark: String
+  token: String!
+}
+
+input GetUserInfo {
+  name: String!
+  token: String!
+}
+
+type UserInfo {
+  userId: String
+  name: String
+  nickname: String
+  sex: String
+  birthday: String
+  hobbies: [String]
+  country_region: String
+}
+
+input GetQuestionDetail {
+  questionId: String!
+}
+
+input GetQuestionsByGuest {
+  guestname: String!
+  token: String!
+}
+
+type GetQuestionsByGuestResult {
+  successful: Boolean!
+  remark: String
+  questions: [QuestionDigest]
+}
+
+
+##### Top level declarations
+
+type Query {
+  getQuestions(input: GetQuestions!): [QuestionDigest]
+  getAnswers(input: GetAnswers!): [Answer]
+  getQuestionDetail(input: GetQuestionDetail!): QuestionDigest
+  search(input: Search!): [QuestionDigest]
+  getGroupInfo(input: GetGroupInfo!): GetGroupInfoResult!
+  getUserInfo(input: GetUserInfo!): UserInfo
+  getQuestionsByGuest(input: GetQuestionsByGuest!): GetQuestionsByGuestResult!
+}
+
+type Mutation {
+  signUp(input: SignUpInput!): SignUpResult!
+  logIn(input: LogInInput!): LogInResult!
+  createQuestion(input: CreateQuestion!): CreateQuestionResult!
+  createAnswer(input: CreateAnswer!): CreateAnswerResult!
+  deleteQuestion(input: DeleteQuestion!): DeleteQuestionResult!
+  createGroup(input: CreateGroup!): CreateGroupResult!
+  editGroupMember(input: EditGroupMember!): EditMemberResult!
+  editGroupAdmin(input: EditGroupAdmin!): EditAdminResult!
+  deleteGroup(input: DeleteGroup!): DeleteGroupResult!
+  updateGroupInfo(input: UpdateGroupInfo!): UpdateGroupInfoResult!
+  updateUserInfo(input: UpdateUserInfo!): UpdateUserInfoResult!
+}
